@@ -21,6 +21,7 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
+  http: "^0.12.2"
   flutter:
     sdk: flutter
 
@@ -29,7 +30,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   ext_video_player: ^0.0.6
-  http: ^0.13.3
+  # http_parser: 0.0.1
   shared_preferences: ^2.0.6
   rxdart: ^0.27.1
   bloc_pattern: ^3.0.0 
