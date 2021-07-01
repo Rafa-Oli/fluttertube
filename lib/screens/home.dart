@@ -24,11 +24,12 @@ class Home extends StatelessWidget {
             icon: Icon(Icons.star),
           ),
           IconButton(
-            onPressed: () {
-              showSearch(
+            onPressed: () async {
+              String? result = await showSearch(
                 context: context,
                 delegate: DataSearch(),
               );
+              print(result);
             },
             icon: Icon(Icons.search),
           ),
