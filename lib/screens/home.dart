@@ -4,6 +4,7 @@ import 'package:fluttertube/blocs/favorite_bloc.dart';
 import 'package:fluttertube/blocs/videos_bloc.dart';
 import 'package:fluttertube/delegates/data_search.dart';
 import 'package:fluttertube/models/video.dart';
+import 'package:fluttertube/screens/favorites.dart';
 import 'package:fluttertube/widgets/video_tile.dart';
 
 class Home extends StatelessWidget {
@@ -23,7 +24,7 @@ class Home extends StatelessWidget {
         actions: [
           Align(
             alignment: Alignment.center,
-            child: StreamBuilder<Map<String?, Video>>(
+            child: StreamBuilder<Map<String, Video>>(
               stream: BlocProvider.getBloc<FavoriteBloc>().outFav,
               builder: (context, snapshot) {
                 if (snapshot.hasData)
@@ -34,7 +35,10 @@ class Home extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => Favorites()));
+            },
             icon: Icon(Icons.star),
           ),
           IconButton(

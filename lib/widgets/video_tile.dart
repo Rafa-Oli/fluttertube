@@ -17,7 +17,7 @@ class VideoTile extends StatelessWidget {
           AspectRatio(
             aspectRatio: 16.0 / 9.0,
             child: Image.network(
-              video.thumb as String,
+              video.thumb,
               fit: BoxFit.cover,
             ),
           ),
@@ -30,7 +30,7 @@ class VideoTile extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.all(8),
                       child: Text(
-                        video.title as String,
+                        video.title,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,
@@ -41,7 +41,7 @@ class VideoTile extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.all(8),
                       child: Text(
-                        video.channel as String,
+                        video.channel,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 14,
@@ -51,8 +51,9 @@ class VideoTile extends StatelessWidget {
                   ],
                 ),
               ),
-              StreamBuilder<Map<String?, Video>>(
+              StreamBuilder<Map<String, Video>>(
                   stream: blocFavorite.outFav,
+                  initialData: {},
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return IconButton(

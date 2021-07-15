@@ -1,10 +1,14 @@
 class Video {
-  String? id;
-  String? title;
-  String? thumb;
-  String? channel;
+  String id;
+  String title;
+  String thumb;
+  String channel;
 
-  Video({this.id, this.title, this.thumb, this.channel});
+  Video(
+      {required this.id,
+      required this.title,
+      required this.thumb,
+      required this.channel});
   // Video();
 
   factory Video.fromJson(Map<String, dynamic> json) {
@@ -17,7 +21,7 @@ class Video {
       );
     } else {
       return Video(
-        id: json["id"],
+        id: json["videoId"],
         title: json["title"],
         thumb: json["thumb"],
         channel: json["channel"],
