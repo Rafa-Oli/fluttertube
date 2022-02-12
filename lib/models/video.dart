@@ -9,7 +9,6 @@ class Video {
       required this.title,
       required this.thumb,
       required this.channel});
-  // Video();
 
   factory Video.fromJson(Map<String, dynamic> json) {
     if (json.containsKey("id")) {

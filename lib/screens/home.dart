@@ -61,36 +61,6 @@ class Home extends StatelessWidget {
       ),
       backgroundColor: Colors.black87,
       body: const Videos(),
-
-      // body: StreamBuilder(
-      //   stream: bloc.outVideos,
-      //   initialData: [],
-      //   builder: (context, AsyncSnapshot<dynamic> snapshot) {
-      //     if (snapshot.hasData) {
-      //       return ListView.builder(
-      //         itemBuilder: (context, index) {
-      //           if (index < snapshot.data.length) {
-      //             return VideoTile(snapshot.data[index]);
-      //           } else if (index > 1) {
-      //             bloc.inSearch.add('');
-      //             return Container(
-      //               height: 40,
-      //               width: 40,
-      //               alignment: Alignment.center,
-      //               child: CircularProgressIndicator(
-      //                 valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
-      //               ),
-      //             );
-      //           } else {
-      //             return Container();
-      //           }
-      //         },
-      //         itemCount: snapshot.data.length + 1,
-      //       );
-      //     } else
-      //       return Container();
-      //   },
-      // ),
     );
   }
 }
@@ -104,7 +74,7 @@ class Videos extends StatefulWidget {
 
 class _VideosState extends State<Videos> {
   late VideosBloc _videosBloc;
-  late final _controller;
+  late final _controller = ScrollController();
 
   @override
   void initState() {
@@ -117,7 +87,6 @@ class _VideosState extends State<Videos> {
   @override
   Widget build(BuildContext context) {
     _videosBloc = BlocProvider.of<VideosBloc>(context);
-    _controller = ScrollController();
 
     return Scaffold(
       body: BlocConsumer<VideosBloc, VideosState>(
@@ -128,8 +97,11 @@ class _VideosState extends State<Videos> {
           }
 
           if (state is VideosGettingSuccess) {
-            return VideoTile(state.videos[0]);
-            // print(state);
+            return ListView.builder(
+              itemBuilder: (context, index) {
+                return VideoTile(state.videos[index]);
+              },
+            );
           }
 
           return const Center(

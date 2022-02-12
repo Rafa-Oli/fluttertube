@@ -8,6 +8,7 @@ class VideoTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // blocFavorite = BlocProvider.getBloc<FavoriteBloc>();
+
     return Container(
       margin: EdgeInsets.symmetric(vertical: 4),
       child: Column(
@@ -31,7 +32,7 @@ class VideoTile extends StatelessWidget {
                       child: Text(
                         video.title,
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontSize: 16,
                         ),
                         maxLines: 2,
