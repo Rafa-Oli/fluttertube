@@ -13,14 +13,21 @@ class Api {
     _search = search;
 
     http.Response response = await http.get(
-        "https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=$search&type=video&key=$API_KEY&maxResults=10");
+        "https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=$_search&type=video&key=$API_KEY&maxResults=10");
+
+    return decode(response);
+  }
+
+  Future<List<Video>> get() async {
+    http.Response response = await http.get(
+        "https://youtube.googleapis.com/youtube/v3/search?part=snippet&type=video&key=$API_KEY&maxResults=10");
 
     return decode(response);
   }
 
   Future<List<Video>> nextPage() async {
     http.Response response = await http.get(
-        "https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=$search&type=video&key=$API_KEY&maxResults=10&pageToken=$_nextToken");
+        "https://youtube.googleapis.com/youtube/v3/search?part=snippet&type=video&key=$API_KEY&maxResults=10&pageToken=$_nextToken");
 
     return decode(response);
   }
