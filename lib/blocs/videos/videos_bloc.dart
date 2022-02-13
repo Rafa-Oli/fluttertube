@@ -10,6 +10,7 @@ class VideosBloc extends Bloc<VideosEvent, VideosState> {
 
   VideosBloc({required this.api}) : super(InitialValues()) {
     on<VideosGetEvent>(_getVideos);
+    on<VideosGetSearchEvent>(_search);
   }
 
   FutureOr<void> _getVideos(
@@ -17,6 +18,15 @@ class VideosBloc extends Bloc<VideosEvent, VideosState> {
     emitter(VideosGetting());
     try {
       final videos = await api.get();
+      emitter(VideosGettingSuccess(videos: videos));
+    } catch (e) {}
+  }
+
+  FutureOr<void> _search(
+      VideosGetSearchEvent event, Emitter<VideosState> emitter) async {
+    emitter(VideosGetting());
+    try {
+      final videos = await api.search(event.search);
       emitter(VideosGettingSuccess(videos: videos));
     } catch (e) {}
   }

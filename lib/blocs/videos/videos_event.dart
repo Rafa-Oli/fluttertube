@@ -7,7 +7,10 @@ abstract class VideosEvent extends Equatable {
 
 class VideosGetEvent extends VideosEvent {
   VideosGetEvent();
+}
 
-  @override
-  List<Object?> get props => [];
+class VideosGetSearchEvent extends VideosEvent {
+  final String search;
+
+  VideosGetSearchEvent({required this.search});
 }

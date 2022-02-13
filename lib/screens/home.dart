@@ -16,7 +16,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final bloc = BlocProvider.getBloc<VideosBloc>();
+    final _videosBloc = BlocProvider.of<VideosBloc>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -54,7 +54,8 @@ class Home extends StatelessWidget {
                 context: context,
                 delegate: DataSearch(),
               );
-              // if (result != null) bloc.inSearch.add(result);
+              if (result != null)
+                _videosBloc.add(VideosGetSearchEvent(search: result));
             },
           ),
         ],
