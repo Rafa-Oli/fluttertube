@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: 'FlutteTube',
+        title: 'FlutterTube',
         home: Home(),
       ),
     );
