@@ -13,6 +13,7 @@ class Favorites extends StatelessWidget {
     late Future<void> _initializeVideoPlayerFuture;
 
     final bloc = BlocProvider.getBloc<FavoriteBloc>();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Favorites'),

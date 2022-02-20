@@ -1,14 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertube/models/video.dart';
 
-class VideoTile extends StatelessWidget {
+import '../blocs/favorites/favorites_bloc.dart';
+import '../blocs/favorites/favorites_event.dart';
+import '../blocs/favorites/favorites_state.dart';
+
+class VideoTile extends StatefulWidget {
   final Video video;
-  // late final blocFavorite;
   VideoTile(this.video);
+
+  @override
+  State<VideoTile> createState() => _VideoTileState();
+}
+
+class _VideoTileState extends State<VideoTile> {
+  late FavoritesBloc _favoritesBloc;
+  late final _controller = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      _favoritesBloc.add(FavoritesGettingEvent());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    // blocFavorite = BlocProvider.getBloc<FavoriteBloc>();
-
+    _favoritesBloc = BlocProvider.of<FavoritesBloc>(context);
     return Container(
       margin: EdgeInsets.symmetric(vertical: 4),
       child: Column(
@@ -17,7 +37,7 @@ class VideoTile extends StatelessWidget {
           AspectRatio(
             aspectRatio: 16.0 / 9.0,
             child: Image.network(
-              video.thumb,
+              widget.video.thumb,
               fit: BoxFit.cover,
             ),
           ),
@@ -30,7 +50,7 @@ class VideoTile extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.all(8),
                       child: Text(
-                        video.title,
+                        widget.video.title,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 16,
@@ -41,7 +61,7 @@ class VideoTile extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.all(8),
                       child: Text(
-                        video.channel,
+                        widget.video.channel,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 14,
@@ -51,25 +71,43 @@ class VideoTile extends StatelessWidget {
                   ],
                 ),
               ),
-              // StreamBuilder<Map<String, Video>>(
-              //     stream: blocFavorite.outFav,
-              //     initialData: {},
-              //     builder: (context, snapshot) {
-              //       if (snapshot.hasData) {
-              //         return IconButton(
-              //           icon: Icon(snapshot.data!.containsKey(video.id)
-              //               ? Icons.star
-              //               : Icons.star_border),
-              //           color: Colors.white,
-              //           iconSize: 30,
-              //           onPressed: () {
-              //             blocFavorite.toggleFavorite(video);
-              //           },
-              //         );
-              //       } else {
-              //         return CircularProgressIndicator();
-              //       }
-              //     })
+              BlocConsumer<FavoritesBloc, FavoritesState>(
+                bloc: _favoritesBloc,
+                builder: (context, state) {
+                  if (state is InitialValues || state is FavoritesGetting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  if (state is FavoritesGettingSuccess) {
+                    return IconButton(
+                      icon: Icon(state.videos.containsKey(widget.video.id)
+                          ? Icons.star
+                          : Icons.star_border),
+                      color: Colors.black,
+                      iconSize: 30,
+                      onPressed: () {
+                        _favoritesBloc
+                            .add(FavoritesToggleEvent(video: widget.video));
+                      },
+                    );
+                  }
+
+                  return const Center(
+                    child: Text('Algo inesperado ocorreu'),
+                  );
+                },
+                listener: (context, state) {
+                  WidgetsBinding.instance!.addPostFrameCallback((_) {
+                    if (_controller.hasClients) {
+                      _controller.animateTo(
+                        _controller.position.maxScrollExtent,
+                        duration: kThemeAnimationDuration,
+                        curve: Curves.easeOut,
+                      );
+                    }
+                  });
+                },
+              ),
             ],
           )
         ],

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertube/api.dart';
 import 'package:fluttertube/screens/home.dart';
 
-import 'blocs/favorite_bloc.dart';
+import 'blocs/favorites/favorites_bloc.dart';
 import 'blocs/videos/videos_bloc.dart';
 
 void main() {
@@ -20,6 +20,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => VideosBloc(api: Api()),
+        ),
+        BlocProvider(
+          create: (context) => FavoritesBloc(),
         ),
       ],
       child: MaterialApp(
