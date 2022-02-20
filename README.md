@@ -1,16 +1,18 @@
-# fluttertube
+![Dart Version](https://img.shields.io/static/v1?label=dart&message=2.16.0&color=00579d)
+![Flutter Version](https://img.shields.io/static/v1?label=flutter&message=2.10.0&color=42a5f5)
 
-A new Flutter project.
+# **Fluttertube**
 
-## Getting Started
+Fluttertube é um aplicativo simples, sendo o "clone" do youtube, com o objetivo principal de trabalhar com o Flutter um aplicativo limpo e desacoplado, utilizando TDD (programação orientada a testes), BDD (programação orientada a comportamentos), SOLID e também Design Pattern.
 
-This project is a starting point for a Flutter application.
+> ## Metodologias e Designs
+- [x] TDD
+- [x] BDD
+- [x] Clean Architecture
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+> ## Bibliotecas e Ferramentas
+- [x] Flutter
+- [x] Flutter Version Management
+- [x] Bloc
+- [x] Git
+- [x] SharedPreferences
